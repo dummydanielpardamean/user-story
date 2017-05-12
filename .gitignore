@@ -1,0 +1,5 @@
+/.eslintrc.json
+/.jshintrc
+/node_modules
+/.vscode
+/.idea
