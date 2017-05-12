@@ -31,8 +31,7 @@ app.use(bodyParser.urlencoded({
 }));
 app.use(bodyParser.json());
 app.use(morgan('dev'));
-app.use(express.static(path.join(__dirname, 'public/src')));
-app.use(express.static(path.join(__dirname, 'public/')));
+app.use(express.static(path.join(__dirname, 'client/dist')));
 
 /*
  |--------------------------------------------------------------------------
@@ -41,14 +40,10 @@ app.use(express.static(path.join(__dirname, 'public/')));
  */
 app.use('/api', require('./routes/api'));
 app.use((req, res) => {
-    res.sendFile(path.join(__dirname, 'public/src/index.html'));
+    res.sendFile(path.join(__dirname, 'client/dist/index.html'));
 });
 
-/*
- |--------------------------------------------------------------------------
- | 404/Not Found request handler
- |--------------------------------------------------------------------------
- */
+// Send index.html for every request
 app.use((req, res) => {
     res.sendFile(path.join(__dirname, 'public/src/index.html'));
 });
