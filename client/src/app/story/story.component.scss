@@ -6,23 +6,24 @@ div.outer-container {
   height: 100%;
   width: 100%;
   flex-direction: column;
-}
 
-div.logout-button-container {
-  width: 600px;
-  display: block;
-  margin-bottom: 5px;
-}
+  div.logout-button-container {
+    width: 600px;
+    display: block;
+    margin-bottom: 5px;
 
-div.logout-button-container button.logout-button {
-  float: right;
-  padding: 10px 10px;
-  font-size: 14px;
-  font-weight: 600;
-  background-color: #ff1744;
-  color: #fff;
-  border: 0px solid transparent;
-  border-radius: 3px;
+    button.logout-button {
+      float: right;
+      padding: 10px 10px;
+      font-size: 14px;
+      font-weight: 600;
+      background-color: #ff1744;
+      color: #fff;
+      border: 0px solid transparent;
+      border-radius: 3px;
+      cursor: pointer;
+    }
+  }
 }
 
 div.container {
@@ -34,44 +35,41 @@ div.container {
   border: 1px solid rgb(237, 237, 237);
   position: relative;
 
-}
+  div.story-item-container {
+    height: 92%;
+    width: 100%;
+    overflow: scroll;
+    overflow-y: hidden;
+    overflow-x: hidden;
 
-div.story-item-container {
-  height: 92%;
-  width: 100%;
-  overflow: scroll;
-  overflow-y: hidden;
-  overflow-x: hidden;
-}
+    &:hover {
+      overflow-y: scroll;
+    }
 
-div.story-item-container:hover {
-  overflow-y: scroll;
-}
+    div.story-item {
+      padding: 10px 15px 10px 20px;
 
-div.story-item {
-  padding: 10px 15px 10px 20px;
-}
+      span {
+        display: block;
+        color: rgb(74, 74, 74);
+        word-wrap: break-word;
+        &.creator {
+          display: inline;
+          font-size: 14px;
+          font-style: italic;
+          font-weight: 400;
+        }
+        &.story {
+          font-size: 20px;
+          font-weight: 600;
+        }
 
-div.story-item span {
-  display: block;
-  color: rgb(74, 74, 74);
-  word-wrap: break-word;
-}
-
-div.story-item span.creator {
-  display: inline;
-  font-size: 14px;
-  font-style: italic;
-  font-weight: 400;
-}
-
-span.story {
-  font-size: 20px;
-  font-weight: 600;
-}
-
-span.date {
-  font-size: 12px;
+        &.date {
+          font-size: 12px;
+        }
+      }
+    }
+  }
 }
 
 app-add-story {

@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import {Router} from "@angular/router";
-import {AuthenticationService} from "../authentication.service";
-import {routerTransition} from "../animations/routerTransition";
+import { Component, OnInit } from "@angular/core";
+import { Router } from "@angular/router";
+import { AuthenticationService } from "../authentication.service";
+import { routerTransition } from "../animations/routerTransition";
 
 @Component({
   selector: 'app-login',
@@ -13,10 +13,13 @@ import {routerTransition} from "../animations/routerTransition";
 export class LoginComponent implements OnInit {
   public user = new User();
 
+  private socket;
+
   constructor(private as: AuthenticationService, private router: Router) {
     this.user.username = 'danielpardamean';
     this.user.password = 'login';
   }
+
   ngOnInit() {
   }
 

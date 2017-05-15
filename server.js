@@ -12,6 +12,24 @@ let app = express();
 
 /*
  |--------------------------------------------------------------------------
+ | Socket Configurations
+ |--------------------------------------------------------------------------
+ */
+let http = require('http');
+let server = http.createServer(app);
+server.listen(3001);
+let io = require('socket.io').listen(server);
+io.on('connection', socket => {
+    console.log("Socket connection with id '%s' was successfully created.", socket.conn.id);
+
+    socket.on('client-to-server-new-story-added', socket => {
+        console.log(socket);
+        io.emit('server-to-client-new-story-added', socket);
+    })
+});
+
+/*
+ |--------------------------------------------------------------------------
  | Connect to MongoDB
  |--------------------------------------------------------------------------
  */
@@ -52,7 +70,7 @@ app.listen(PORT, err => {
     if (err) {
         console.log(err);
     } else {
-        console.log('Server started on port %s', PORT);
+        console.log('Server is running on PORT %s', PORT);
 
     }
 });

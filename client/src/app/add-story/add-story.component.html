@@ -1,5 +1,7 @@
 <div class="form">
   <input type="text" class="story" name="story" [(ngModel)]="story" placeholder="Tuliskan storymu disini">
 
-  <button (click)="postStory()" type="button">POST</button>
+  <button (click)="postStory()" type="button" [disabled]="(story.length < 1)" [class.unclickable]="(story.length < 1)">
+    POST
+  </button>
 </div>

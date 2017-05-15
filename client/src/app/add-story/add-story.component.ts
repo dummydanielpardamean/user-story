@@ -1,5 +1,7 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
-import {StoryService} from "../story.service";
+import { Component, EventEmitter, OnInit, Output } from "@angular/core";
+import { StoryService } from "../story.service";
+import * as io from "socket.io-client";
+import { socketURI } from "../config";
 
 @Component({
   selector: 'app-add-story',
@@ -7,17 +9,28 @@ import {StoryService} from "../story.service";
   styleUrls: ['./add-story.component.scss']
 })
 export class AddStoryComponent implements OnInit {
-  public story: any;
+  public story: string = '';
+  public unclickable: boolean = this.story.length < 1;
+  private socket;
   @Output() onStoryAdded = new EventEmitter();
 
-  constructor(public ss: StoryService) { }
-  ngOnInit() { }
+  constructor(public ss: StoryService) {
+  }
+
+  ngOnInit() {
+    this.socket = io(socketURI);
+  }
 
   postStory() {
     this.ss.postStory(this.story).subscribe(res => {
-      console.log(res);
       this.onStoryAdded.emit(res);
-      this.story = null;
+      this.socket.emit('client-to-server-new-story-added', res);
+
+      this.socket.on('server-to-client-new-story-added', socket => {
+        console.log(socket);
+      })
+
+      this.story = '';
     });
   }
 

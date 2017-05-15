@@ -1,7 +1,6 @@
-import {Injectable} from "@angular/core";
-import {Headers, Http, RequestOptions} from "@angular/http";
-import {Observable} from 'rxjs/Rx';
-import 'rxjs/add/operator/map';
+import { Injectable } from "@angular/core";
+import { Headers, Http, RequestOptions } from "@angular/http";
+import "rxjs/add/operator/map";
 
 @Injectable()
 export class StoryService {
@@ -17,7 +16,9 @@ export class StoryService {
 
   postStory(story: any) {
     let token = localStorage.getItem('token');
-    return this.http.post('/api/story?token=' + token, {story})
+    let headers = new Headers({'x-access-token': token});
+    let options = new RequestOptions({headers});
+    return this.http.post('/api/story', {story}, options)
       .map(res => res.json());
   }
 }

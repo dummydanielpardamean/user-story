@@ -43,20 +43,13 @@ router.post('/signin', function (req, res) {
 
 router.use(token.check);
 
-// router.get('/users', (req, res) => {
-//     User.all((err, users, next) => {
-//         if (err)
-//             return next(err);
-//         res.json(users);
-//     });
-// });
-
 router.post('/story', (req, res) => {
-    let userInformation = jwt.decode(req.query.token);
+    let token = req.body.token || req.query.token || req.headers['x-access-token'];
+    let userInformation = jwt.decode(token);
     let story = {
         _creator: userInformation.id,
         story: req.body.story,
-    }
+    };
 
     Story(story)
         .save()
