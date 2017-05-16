@@ -1,6 +1,6 @@
-let bcrypt = require('bcrypt-nodejs');
-let mongoose = require('mongoose');
-let Schema = mongoose.Schema;
+import mongoose from 'mongoose';
+
+const {Schema} = mongoose;
 
 let StorySchema = new Schema({
     _creator: {
@@ -17,10 +17,12 @@ let StorySchema = new Schema({
     }
 });
 
-let Story = module.exports = mongoose.model('Story', StorySchema);
+const Story = mongoose.model('Story', StorySchema);
 
 Story.all = callback => {
     Story.find(callback).populate({
         path: '_creator'
     });
 };
+
+export default Story;

@@ -1,17 +1,15 @@
-let express = require('express');
-let router = express.Router();
-let jwt = require('jsonwebtoken');
+import express from 'express';
+import jsonwebtoken from 'jsonwebtoken';
 
-let User = require('../model/user');
-let Story = require('../model/story');
-let token = require('../middlewares/token');
+import TokenMiddleware from './../middlewares/TokenMiddleware';
+import User from './../model/user';
+import Story from './../model/story';
 
-router.post('/signup', (req, res) => {
-    let $user = new User({
-        name: req.body.name,
-        username: req.body.username,
-        password: req.body.password
-    });
+const routes = express();
+
+routes.post('/signup', (req, res) => {
+  const { name, username, password } = req.body;
+    const $user = new User(name, username, password);
     $user.save((err, user) => {
         if (err) {
             res.send(err);
@@ -22,8 +20,9 @@ router.post('/signup', (req, res) => {
     });
 });
 
-router.post('/signin', function (req, res) {
-    User.findOne({username: req.body.username}).select('name username password').exec(function (err, user) {
+routes.post('/signin', function (req, res) {
+  const {username } = req.body;
+    User.findOne({username}).select('name username password').exec(function (err, user) {
         if (err)
             res.json(err);
         if (!user) {
@@ -33,7 +32,7 @@ router.post('/signin', function (req, res) {
             if (!validPassword) {
                 res.json({message: 'Invalid Password'});
             } else {
-                hasil = token.create(user);
+                let hasil = TokenMiddleware.create(user);
                 console.log(hasil);
                 res.json(hasil);
             }
@@ -41,15 +40,17 @@ router.post('/signin', function (req, res) {
     });
 });
 
-router.use(token.check);
+routes.use(TokenMiddleware.check);
 
-router.post('/story', (req, res) => {
+routes.post('/story', (req, res) => {
     let token = req.body.token || req.query.token || req.headers['x-access-token'];
-    let userInformation = jwt.decode(token);
+    let userInformation = jsonwebtoken.decode(token);
     let story = {
-        _creator: userInformation.id,
+        _creator: userInformation._id,
         story: req.body.story,
     };
+
+    console.log(story);
 
     Story(story)
         .save()
@@ -67,10 +68,10 @@ router.post('/story', (req, res) => {
         });
 });
 
-router.get('/stories', (req, res) => {
-    Story.all(function (err, stories) {
+routes.get('/stories', (req, res) => {
+    Story.all( (err, stories) => {
         res.json(stories);
     })
 });
 
-module.exports = router;
+export default routes;

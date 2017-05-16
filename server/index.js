@@ -1,13 +1,13 @@
-let express = require('express');
-let mongoose = require('mongoose');
-let morgan = require('morgan');
-let bodyParser = require('body-parser');
-let path = require('path');
+import express from 'express';
+import mongoose from 'mongoose';
+import morgan from 'morgan';
+import bodyParser from 'body-parser';
+import path from 'path';
+import http from 'http';
+import SocketIO from 'socket.io'
 
-let config = require('./config');
+import { PORT, databaseURI } from './config';
 
-let PORT = config.port;
-let mongodb = config.database;
 let app = express();
 
 /*
@@ -15,17 +15,16 @@ let app = express();
  | Socket Configurations
  |--------------------------------------------------------------------------
  */
-let http = require('http');
 let server = http.createServer(app);
 server.listen(3001);
-let io = require('socket.io').listen(server);
-io.on('connection', socket => {
+let io = SocketIO.listen(server);
+io.on('connection', function(socket) {
     console.log("Socket connection with id '%s' was successfully created.", socket.conn.id);
 
-    socket.on('client-to-server-new-story-added', socket => {
+    socket.on('client-to-server-new-story-added', function (socket) {
         console.log(socket);
         io.emit('server-to-client-new-story-added', socket);
-    })
+    });
 });
 
 /*
@@ -33,7 +32,7 @@ io.on('connection', socket => {
  | Connect to MongoDB
  |--------------------------------------------------------------------------
  */
-mongoose.connect(mongodb, (err) => {
+mongoose.connect(databaseURI, (err) => {
     if (err) {
         throw err;
     }
@@ -49,7 +48,7 @@ app.use(bodyParser.urlencoded({
 }));
 app.use(bodyParser.json());
 app.use(morgan('dev'));
-app.use(express.static(path.join(__dirname, 'client/dist')));
+app.use(express.static(path.join(__dirname, '../client/dist')));
 
 /*
  |--------------------------------------------------------------------------
@@ -58,12 +57,7 @@ app.use(express.static(path.join(__dirname, 'client/dist')));
  */
 app.use('/api', require('./routes/api'));
 app.use((req, res) => {
-    res.sendFile(path.join(__dirname, 'client/dist/index.html'));
-});
-
-// Send index.html for every request
-app.use((req, res) => {
-    res.sendFile(path.join(__dirname, 'public/src/index.html'));
+    res.sendFile(path.join(__dirname, '../client/dist/index.html'));
 });
 
 app.listen(PORT, err => {

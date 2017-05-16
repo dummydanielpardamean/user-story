@@ -1,6 +1,7 @@
-let bcrypt = require('bcrypt-nodejs');
-let mongoose = require('mongoose');
-let Schema = mongoose.Schema;
+import bcrypt from 'bcrypt-nodejs';
+import mongoose from 'mongoose';
+
+const {Schema} = mongoose;
 
 let UserSchema = new Schema({
     name: String,
@@ -35,7 +36,7 @@ UserSchema.methods.comparePassword = function (password) {
     return bcrypt.compareSync(password, this.password);
 };
 
-let User = module.exports = mongoose.model('User', UserSchema);
+let User = mongoose.model('User', UserSchema);
 
 User.all = callback => {
     User.find(callback);
@@ -44,3 +45,5 @@ User.all = callback => {
 User.save = callback => {
     User.save(callback);
 };
+
+export default User;
