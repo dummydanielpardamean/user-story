@@ -9,6 +9,6 @@
         <span class="date">{{ story.createdAt | date }}</span>
       </div>
     </div>
-    <app-add-story (onStoryAdded)="onStoryAdded($event)"></app-add-story>
+    <app-add-story (onStoryAddedEventEmitter)="onStoryAdded($event)"></app-add-story>
   </div>
 </div>

@@ -12,23 +12,23 @@ export class AddStoryComponent implements OnInit {
   public story: string = '';
   public unclickable: boolean = this.story.length < 1;
   private socket;
-  @Output() onStoryAdded = new EventEmitter();
+  @Output() onStoryAddedEventEmitter = new EventEmitter();
 
   constructor(public ss: StoryService) {
   }
 
   ngOnInit() {
-    this.socket = io(socketURI);
+    this.socket = io.connect(socketURI);
+    this.socket.on('server-to-client-new-story-added', socket => {
+      console.log(socket);
+      this.onStoryAddedEventEmitter.emit(socket);
+    });
   }
 
   postStory() {
     this.ss.postStory(this.story).subscribe(res => {
-      this.onStoryAdded.emit(res);
-      this.socket.emit('client-to-server-new-story-added', res);
-
-      this.socket.on('server-to-client-new-story-added', socket => {
-        console.log(socket);
-      })
+      this.onStoryAddedEventEmitter.emit(res[0]);
+      this.socket.emit('client-to-server-new-story-added', res[0]);
 
       this.story = '';
     });

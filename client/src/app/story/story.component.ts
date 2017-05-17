@@ -13,7 +13,6 @@ import { routerTransition } from "../animations/routerTransition";
 export class StoryComponent implements OnInit {
 
   public stories: any;
-  private io;
 
   constructor(private service: StoryService, private as: AuthenticationService) {
   }
@@ -28,7 +27,10 @@ export class StoryComponent implements OnInit {
   }
 
   onStoryAdded(event: any) {
-    this.stories.push(event[0]);
+    console.log(event);
+    this.stories.unshift(event);
+    console.log("emit berhasil dilakukan");
+    console.log(this.stories)
   }
 
   logout() {

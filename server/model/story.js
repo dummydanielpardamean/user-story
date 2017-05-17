@@ -20,7 +20,7 @@ let StorySchema = new Schema({
 const Story = mongoose.model('Story', StorySchema);
 
 Story.all = callback => {
-    Story.find(callback).populate({
+    Story.find(callback).sort({createdAt:-1}).populate({
         path: '_creator'
     });
 };
