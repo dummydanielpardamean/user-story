@@ -12,6 +12,7 @@ import { AuthenticationGuardService } from "./authentication-guard.service";
 import { AuthenticationService } from "./authentication.service";
 import { StoryService } from "./story.service";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
+import { TokenService } from "./token.service";
 
 @NgModule({
   declarations: [
@@ -27,7 +28,7 @@ import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
     HttpModule,
     AppRoutingModule
   ],
-  providers: [AuthenticationGuardService, AuthenticationService, StoryService],
+  providers: [AuthenticationGuardService, AuthenticationService, StoryService, TokenService],
   bootstrap: [AppComponent]
 })
 export class AppModule {

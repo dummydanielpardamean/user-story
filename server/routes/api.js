@@ -7,6 +7,13 @@ import Story from './../model/story';
 
 const routes = express();
 
+routes.get('/token/decode', (req, res) => {
+  let token = req.body.token || req.query.token || req.headers['x-access-token'];
+  let userInformation = jsonwebtoken.decode(token);
+  console.log(userInformation);
+  res.json(userInformation);
+});
+
 routes.post('/signup', (req, res) => {
   const { name, username, password } = req.body;
     const $user = new User(name, username, password);
@@ -21,19 +28,18 @@ routes.post('/signup', (req, res) => {
 });
 
 routes.post('/signin', function (req, res) {
-  const {username } = req.body;
+  const {username, password } = req.body;
     User.findOne({username}).select('name username password').exec(function (err, user) {
         if (err)
             res.json(err);
         if (!user) {
             res.json({message: 'User doesn\'t exist'});
         } else if (user) {
-            let validPassword = user.comparePassword(req.body.password);
+            let validPassword = user.comparePassword(password);
             if (!validPassword) {
                 res.json({message: 'Invalid Password'});
             } else {
                 let hasil = TokenMiddleware.create(user);
-                console.log(hasil);
                 res.json(hasil);
             }
         }

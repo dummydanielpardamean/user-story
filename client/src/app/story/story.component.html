@@ -7,6 +7,7 @@
       <div class="story-item" *ngFor="let story of stories">
         <span class="story">{{ story.story }} - <span class="creator">{{ story._creator.name }}</span></span>
         <span class="date">{{ story.createdAt | date }}</span>
+        <span *ngIf="user._id==story._creator._id">author</span>
       </div>
     </div>
     <app-add-story (onStoryAddedEventEmitter)="onStoryAdded($event)"></app-add-story>
