@@ -14,7 +14,7 @@
         <div class="action-button-container" *ngIf="user._id==story._creator._id">
           <div class="button-group">
             <button (click)="edit(story._id)" class="edit"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
-            <button (click)="delete(story._id)" class="delete"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
+            <button (click)="delete(story)" class="delete"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
           </div>
         </div>
       </div>

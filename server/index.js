@@ -24,6 +24,11 @@ io.on('connection', function (client) {
     client.on('client-to-server-new-story-added', function (data) {
         client.broadcast.emit('server-to-client-new-story-added', data);
     });
+
+    client.on('client-to-server-new-story-deleted', function (data) {
+        console.log(data);
+        client.broadcast.emit('server-to-client-new-story-deleted', data);
+    });
 });
 
 /*

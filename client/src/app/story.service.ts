@@ -34,7 +34,9 @@ export class StoryService {
     let token = localStorage.getItem('token');
     let headers = new Headers({'x-access-token': token});
     let options = new RequestOptions({headers});
-    return this.http.delete('/api/story/update/' + story._id, options)
-      .map(res => res.json());
+    return this.http.delete('/api/story/delete/' + story._id , options)
+      .map(res => {
+        return res.json();
+      });
   }
 }

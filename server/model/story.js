@@ -25,12 +25,18 @@ Story.all = callback => {
     });
 };
 
+Story.remove = (_id, callback)=>{
+    Story.findById({_id}, callback).populate({
+        path: '_creator'
+    });
+};
+
 Story.update = (conditions, update, options, callback) => {
     Story.findOneAndUpdate(conditions, update, options, callback);
 };
 
-Story.delete = (id, callback)=>{
-    Story.findByIdAndRemove(id, callback);
+Story.delete = (_id, callback)=>{
+    Story.findByIdAndRemove({_id}, callback)
 }
 
 export default Story;

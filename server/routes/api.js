@@ -94,13 +94,19 @@ routes.put('/story/update/', (req, res) => {
     }
 });
 
-routes.delete('/story/delete/:_id', (req, res)=>{
-   Story.delete(req.params._id, (err, data)=>{
-      if(err) return res.json(err);
-      else{
-          return res.json(data);
-      }
-   });
+routes.delete('/story/delete/:_id/', (req, res) => {
+    let token = req.body.token || req.query.token || req.headers['x-access-token'];
+    let userInformation = jsonwebtoken.decode(token);
+    const {_id, user_id} = req.params;
+    
+    Story.remove(_id, (err, story)=>{
+        if (err) return res.json(err);
+
+        if (story._creator._id == userInformation._id){
+            story.remove();
+            res.status(200).json({status: "OK"});
+        }
+    });
 });
 
 export default routes;
