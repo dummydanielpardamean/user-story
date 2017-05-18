@@ -1,34 +1,33 @@
-import express from 'express';
-import jsonwebtoken from 'jsonwebtoken';
+import express from "express";
+import jsonwebtoken from "jsonwebtoken";
 
-import TokenMiddleware from './../middlewares/TokenMiddleware';
-import User from './../model/user';
-import Story from './../model/story';
+import TokenMiddleware from "./../middlewares/TokenMiddleware";
+import User from "./../model/user";
+import Story from "./../model/story";
 
 const routes = express();
 
 routes.get('/token/decode', (req, res) => {
-  let token = req.body.token || req.query.token || req.headers['x-access-token'];
-  let userInformation = jsonwebtoken.decode(token);
-  console.log(userInformation);
-  res.json(userInformation);
+    let token = req.body.token || req.query.token || req.headers['x-access-token'];
+    let userInformation = jsonwebtoken.decode(token);
+    console.log(userInformation);
+    res.json(userInformation);
 });
 
 routes.post('/signup', (req, res) => {
-  const { name, username, password } = req.body;
-    const $user = new User(name, username, password);
+    console.log(req.body);
+    const {name, username, password} = req.body;
+    const $user = new User({name, username, password});
     $user.save((err, user) => {
         if (err) {
             res.send(err);
         }
-        res.json({
-            message: user.name + ' created!'
-        });
+        res.json(user);
     });
 });
 
 routes.post('/signin', function (req, res) {
-  const {username, password } = req.body;
+    const {username, password} = req.body;
     User.findOne({username}).select('name username password').exec(function (err, user) {
         if (err)
             res.json(err);
@@ -75,7 +74,7 @@ routes.post('/story', (req, res) => {
 });
 
 routes.get('/stories', (req, res) => {
-    Story.all( (err, stories) => {
+    Story.all((err, stories) => {
         res.json(stories);
     })
 });

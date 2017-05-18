@@ -1,10 +1,13 @@
-import bcrypt from 'bcrypt-nodejs';
-import mongoose from 'mongoose';
+import bcrypt from "bcrypt-nodejs";
+import mongoose from "mongoose";
 
-const {Schema} = mongoose;
+let Schema = mongoose.Schema;
 
 let UserSchema = new Schema({
-    name: String,
+    name: {
+        type: String,
+        require: 1
+    },
     username: {
         type: String,
         require: true,
@@ -40,10 +43,6 @@ let User = mongoose.model('User', UserSchema);
 
 User.all = callback => {
     User.find(callback);
-};
-
-User.save = callback => {
-    User.save(callback);
 };
 
 export default User;

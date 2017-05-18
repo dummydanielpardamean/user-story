@@ -40,3 +40,14 @@ div.form {
     }
   }
 }
+
+@media all and (max-width: 660px) {
+  button {
+    width: 13% !important;
+    font-size: 12px !important;
+  }
+  input {
+    width: 87% !important;
+    font-size: 12px !important;
+  }
+}

@@ -10,7 +10,7 @@ export class StoryService {
   getStory() {
     let token = localStorage.getItem('token');
     let headers = new Headers({'x-access-token': token});
-    return this.http.get('/api/stories', new RequestOptions({headers}))
+    return this.http.get('api/stories', new RequestOptions({headers}))
       .map(res => res.json());
   }
 

@@ -1,12 +1,12 @@
-import express from 'express';
-import mongoose from 'mongoose';
-import morgan from 'morgan';
-import bodyParser from 'body-parser';
-import path from 'path';
-import http from 'http';
-import SocketIO from 'socket.io';
+import express from "express";
+import mongoose from "mongoose";
+import morgan from "morgan";
+import bodyParser from "body-parser";
+import path from "path";
+import http from "http";
+import SocketIO from "socket.io";
 
-import { PORT, databaseURI } from './config';
+import {databaseURI, PORT} from "./config";
 
 let app = express();
 
@@ -18,7 +18,7 @@ let app = express();
 let server = http.createServer(app);
 server.listen(3001);
 let io = SocketIO.listen(server);
-io.on('connection', function(client) {
+io.on('connection', function (client) {
     console.log("Socket connection with id '%s' was successfully created.", client.conn.id);
 
     client.on('client-to-server-new-story-added', function (data) {

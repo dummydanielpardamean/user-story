@@ -3,13 +3,13 @@ import { Http } from "@angular/http";
 import "rxjs/add/operator/map";
 
 @Injectable()
-export class TokenService {
+export class RegisterService {
 
   constructor(public http: Http) {
   }
 
-  decode(token) {
-    return this.http.get('/api/token/decode?token=' + token)
-      .map(res => res.json());
+  register(user) {
+    return this.http.post('/api/signup', user)
+      .map(response => response.json());
   }
 }

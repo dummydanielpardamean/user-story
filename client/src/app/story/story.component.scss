@@ -12,6 +12,14 @@ div.outer-container {
     display: block;
     margin-bottom: 5px;
 
+    > span.login-mark {
+      font-size: 13px;
+      display: block;
+      float: left;
+      padding: 10px 2px;
+      font-style: italic;
+    }
+
     button.logout-button {
       float: right;
       padding: 10px 10px;
@@ -53,19 +61,18 @@ div.container {
         display: block;
         color: rgb(74, 74, 74);
         word-wrap: break-word;
-        &.creator {
-          display: inline;
-          font-size: 14px;
-          font-style: italic;
-          font-weight: 400;
-        }
+
         &.story {
           font-size: 20px;
           font-weight: 600;
         }
 
-        &.date {
-          font-size: 12px;
+        &.creator, &.date {
+          display: inline;
+          font-size: 13px;
+          font-style: italic;
+          font-weight: 400;
+          display: inline;
         }
       }
     }
@@ -76,4 +83,21 @@ app-add-story {
   position: absolute;
   bottom: 0;
   width: 100%;
+}
+
+@media all and (max-width: 660px) {
+  div.logout-button-container, div.container {
+    width: 92% !important;
+  }
+
+  button.logout-button {
+    font-size: 12px !important;
+  }
+
+  span.story {
+    font-size: 18px !important;
+  }
+  span.creator, span.date {
+    font-size: 11px !important;
+  }
 }

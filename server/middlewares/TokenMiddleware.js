@@ -1,12 +1,12 @@
-import jsonwebtoken from 'jsonwebtoken';
+import jsonwebtoken from "jsonwebtoken";
 
-import {secretKey} from './../config';
+import {secretKey} from "./../config";
 
 const TokenMiddleware = {};
 
 TokenMiddleware.create = function (user) {
-  const { _id, name, username } = user;
-    return jsonwebtoken.sign({ _id, name, username }, secretKey, {expiresIn: '500m'});
+    const {_id, name, username} = user;
+    return jsonwebtoken.sign({_id, name, username}, secretKey, {expiresIn: '500m'});
 };
 
 

@@ -13,6 +13,8 @@ import { AuthenticationService } from "./authentication.service";
 import { StoryService } from "./story.service";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { TokenService } from "./token.service";
+import { RegisterComponent } from "./register/register.component";
+import { RegisterService } from "./register.service";
 
 @NgModule({
   declarations: [
@@ -20,6 +22,7 @@ import { TokenService } from "./token.service";
     LoginComponent,
     AddStoryComponent,
     StoryComponent,
+    RegisterComponent,
   ],
   imports: [
     BrowserAnimationsModule,
@@ -28,7 +31,7 @@ import { TokenService } from "./token.service";
     HttpModule,
     AppRoutingModule
   ],
-  providers: [AuthenticationGuardService, AuthenticationService, StoryService, TokenService],
+  providers: [AuthenticationGuardService, AuthenticationService, StoryService, TokenService, RegisterService],
   bootstrap: [AppComponent]
 })
 export class AppModule {
