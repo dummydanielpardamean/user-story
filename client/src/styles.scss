@@ -37,3 +37,9 @@ h1 {
 app-story, app-login, app-register {
   top: 50%;
 }
+
+input{
+  outline-style:none;
+  box-shadow:none;
+  border-color:transparent;
+}

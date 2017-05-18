@@ -15,6 +15,8 @@ export class StoryComponent implements OnInit {
 
   public stories: any;
   public user: any;
+  private editModal: boolean = false;
+  private storyForEditModal: any;
 
   constructor(private service: StoryService, private as: AuthenticationService, private token: TokenService) {
   }
@@ -32,11 +34,27 @@ export class StoryComponent implements OnInit {
 
   }
 
+  edit(id) {
+    this.editModal = true;
+    let story = this.stories.filter((v) => v._id == id);
+    this.storyForEditModal = story[0];
+  }
+
+  delete(id) {
+    console.log("hit delete");
+    console.log(id);
+  }
+
+
   onStoryAdded(event: any) {
     console.log(event);
     this.stories.unshift(event);
     console.log("emit berhasil dilakukan");
-    console.log(this.stories)
+    console.log(this.stories);
+  }
+
+  onBack(event: any) {
+    this.editModal = event;
   }
 
   logout() {

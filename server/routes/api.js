@@ -79,4 +79,28 @@ routes.get('/stories', (req, res) => {
     })
 });
 
+routes.put('/story/update/', (req, res) => {
+    let token = req.body.token || req.query.token || req.headers['x-access-token'];
+    let userInformation = jsonwebtoken.decode(token);
+    let story = req.body;
+
+    if (story._creator._id == userInformation._id) {
+        Story.update({_id: story._id}, {$set: {story: story.story}}, false, function (err, data) {
+            if (err) return res.json(err);
+            else {
+                return res.json(data);
+            }
+        });
+    }
+});
+
+routes.delete('/story/delete/:_id', (req, res)=>{
+   Story.delete(req.params._id, (err, data)=>{
+      if(err) return res.json(err);
+      else{
+          return res.json(data);
+      }
+   });
+});
+
 export default routes;

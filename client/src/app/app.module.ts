@@ -15,6 +15,7 @@ import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { TokenService } from "./token.service";
 import { RegisterComponent } from "./register/register.component";
 import { RegisterService } from "./register.service";
+import { EditModalComponent } from './edit-modal/edit-modal.component';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import { RegisterService } from "./register.service";
     AddStoryComponent,
     StoryComponent,
     RegisterComponent,
+    EditModalComponent,
   ],
   imports: [
     BrowserAnimationsModule,

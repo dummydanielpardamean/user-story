@@ -56,6 +56,7 @@ div.container {
 
     div.story-item {
       padding: 10px 15px 10px 20px;
+      position: relative;
 
       span {
         display: block;
@@ -75,6 +76,34 @@ div.container {
           display: inline;
         }
       }
+
+      div.action-button-container{
+        position: absolute;
+        top:33%;
+        right: 4%;
+        overflow: hidden;
+        border-radius: 3px;
+        div.button-group{
+          width:100%;
+          display: block;
+
+          button{
+            display: block;
+            padding:3px;
+            border: 1px solid transparent;
+            float: left;
+            color: #fff;
+
+            &.edit{
+              background-color: #ffe42e;
+            }
+            &.delete{
+              background-color: #ff3243;
+            }
+          }
+        }
+      }
+
     }
   }
 }

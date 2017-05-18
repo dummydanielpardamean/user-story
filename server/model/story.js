@@ -25,4 +25,12 @@ Story.all = callback => {
     });
 };
 
+Story.update = (conditions, update, options, callback) => {
+    Story.findOneAndUpdate(conditions, update, options, callback);
+};
+
+Story.delete = (id, callback)=>{
+    Story.findByIdAndRemove(id, callback);
+}
+
 export default Story;
