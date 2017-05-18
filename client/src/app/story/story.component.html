@@ -1,6 +1,6 @@
 <div class="outer-container">
   <div class="logout-button-container">
-    <span class="login-mark">Login as {{ user.name }}</span>
+    <span class="login-mark">Login as {{ user?.name }}</span>
     <button (click)="logout()" class="logout-button">LOGOUT</button>
   </div>
   <div class="container">
@@ -8,7 +8,7 @@
       <div class="story-item" *ngFor="let story of stories">
         <span class="story">{{ story.story }}</span>
         <span class="creator-and-date">
-          <span class="creator">Author {{ story._creator.name }}</span>
+          <span class="creator">Author {{ story._creator?.name }}</span>
           <span class="date">at {{ story.createdAt | date }}</span>
         </span>
         <span *ngIf="user._id==story._creator._id">author</span>

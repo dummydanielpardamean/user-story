@@ -22,9 +22,7 @@ export class StoryComponent implements OnInit {
   ngOnInit() {
     let token = localStorage.getItem("token");
     this.token.decode(token).subscribe(res => {
-      // localStorage.setItem('user', JSON.stringify(res));
       this.user = res;
-
     });
     this.service.getStory().subscribe(res => {
       this.stories = res;
