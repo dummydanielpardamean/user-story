@@ -21,9 +21,7 @@ export class StoryComponent implements OnInit {
   private storyForEditModal: any;
   private socket;
 
-  constructor(private service: StoryService, private as: AuthenticationService, private token: TokenService) {
-
-  }
+  constructor(private service: StoryService, private as: AuthenticationService, private token: TokenService) {}
 
   ngOnInit() {
     let token = localStorage.getItem("token");
@@ -41,8 +39,11 @@ export class StoryComponent implements OnInit {
       this.deleteStoryInStories(socket);
     });
 
-
-
+    this.socket.on('server-to-client-new-story-edited', socket => {
+      console.log(socket);
+      let index = this.stories.findIndex(story => story._id == socket._id);
+      this.stories[index] = socket;
+    });
   }
 
   edit(id) {
